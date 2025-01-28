@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from 'react-aria-components';
 import CustomizeImage from './customizeImage';
 import FrameSelection from './frameSection';
+import ConfirmOrder from './confirmOrder';
 
 export default function CustomizePrint() {
   return (
@@ -16,6 +17,7 @@ export default function CustomizePrint() {
         <div className="flex flex-col gap-8">
           <CustomizeImage />
           <FrameSelection />
+          <ConfirmOrder />
         </div>
       </div>
     </div>
@@ -44,7 +46,7 @@ function ChooseArt() {
             onPress={() => {
               setSelectedArt(option.id);
             }}
-            className={'relative w-full'}
+            className={'relative w-full focus:outline focus:outline-green'}
           >
             <ArtPreview id={option.id} />
           </Button>

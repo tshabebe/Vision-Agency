@@ -26,7 +26,7 @@ function Size() {
         <Button
           key={option.id}
           className={cn(
-            'flex flex-col bg-gray-elevation-3 p-4',
+            'flex flex-col bg-gray-elevation-3 p-4 outline focus:outline-green',
             option.id === 'large' && 'p-6',
             option.id === 'medium' && 'p-5',
           )}
