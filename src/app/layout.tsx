@@ -6,8 +6,8 @@ import { ThemeProvider } from '@/provider/theme.provider';
 import { ClientProviders } from '@/provider/react.aria.provider';
 
 export const metadata: Metadata = {
-  title: 'Instructise',
-  description: 'Personalized Boarding Platform for Instructors',
+  title: 'Vision Agency',
+  description: 'Vision Agency Interview Assignment',
 };
 
 export default function RootLayout({
