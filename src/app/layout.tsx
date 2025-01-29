@@ -7,7 +7,7 @@ import { ClientProviders } from '@/provider/react.aria.provider';
 
 export const metadata: Metadata = {
   title: 'Vision Agency',
-  description: 'Vision Agency Interview Assignment',
+  description: 'Vision Agency Art Gallery',
 };
 
 export default function RootLayout({
