@@ -12,6 +12,7 @@ import { trpc } from '@/lib/trpc/client';
 import type { OrderArtInputForm } from '@/server/router/orderArt.schema';
 import { ZOrderArtInputForm } from '@/server/router/orderArt.schema';
 import { useSearchParams } from 'next/navigation';
+import { LoaderCircle } from 'lucide-react';
 
 function ConfirmOrder() {
   const form = useForm<OrderArtInputForm>({
@@ -23,10 +24,20 @@ function ConfirmOrder() {
   const size = searchParams.get('size');
   const frame = searchParams.get('frame');
 
-  const orderArt = trpc.orderArtRouter.orderArt.useMutation();
+  const orderArt = trpc.orderArtRouter.orderArt.useMutation({
+    onError: (error) => {
+      form.setError('root', {
+        type: 'server',
+        message: error.message,
+      });
+    },
+  });
   function onSubmit(data: OrderArtInputForm) {
     if (!artUrl || !size || !frame) {
-      alert('please select the art, frame and size');
+      form.setError('root', {
+        type: 'server',
+        message: 'please select the art, frame and size',
+      });
       return;
     }
     orderArt.mutate({
@@ -94,12 +105,20 @@ function ConfirmOrder() {
       </div>
       <Button
         type="submit"
+        isPending={orderArt.isPending}
+        isDisabled={orderArt.isPending}
         className={
-          'bg-green px-4 py-2 text-lg font-semibold uppercase tracking-widest text-background focus:outline focus:outline-green'
+          'flex items-center justify-center gap-2 bg-green px-4 py-2 text-lg font-semibold uppercase tracking-widest text-background pending:opacity-90 focus:outline focus:outline-green'
         }
       >
+        {orderArt.isPending && (
+          <LoaderCircle size={16} strokeWidth={3} className="animate-spin" />
+        )}
         Order
       </Button>
+      <p className="text-red-text-secondary">
+        {form.formState.errors.root ? form.formState.errors.root.message : ''}
+      </p>
     </form>
   );
 }
