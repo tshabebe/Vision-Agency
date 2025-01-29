@@ -16,10 +16,6 @@ import { useSearchParams } from 'next/navigation';
 function ConfirmOrder() {
   const form = useForm<OrderArtInputForm>({
     resolver: zodResolver(ZOrderArtInputForm),
-    defaultValues: {
-      contactInfo: 'test',
-      name: 'testing',
-    },
   });
 
   const searchParams = useSearchParams();
@@ -44,9 +40,9 @@ function ConfirmOrder() {
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
-      className="flex flex-col gap-4"
+      className="flex w-full flex-col gap-4"
     >
-      <div className="flex gap-2">
+      <div className="flex flex-col gap-2 lg:flex-row">
         <Controller
           control={form.control}
           name="name"

@@ -1,4 +1,6 @@
 import { cn } from '@/lib/utils';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback } from 'react';
 import { Button, Separator } from 'react-aria-components';
 
 export default function CustomizeImage() {
@@ -20,15 +22,33 @@ const sizeOptions = [
   { id: 'medium', print: 'P - 57 x 87', frame: 'F - 60 x 90' },
 ];
 function Size() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams],
+  );
+
   return (
     <div className="flex items-center gap-2">
       {sizeOptions.map((option) => (
         <Button
           key={option.id}
+          onPress={() => {
+            router.push(pathname + '?' + createQueryString('size', option.id));
+          }}
           className={cn(
             'flex flex-col bg-gray-elevation-3 p-4 outline focus:outline-green',
             option.id === 'large' && 'p-6',
             option.id === 'medium' && 'p-5',
+            searchParams.get('size') === option.id && 'outline outline-green',
           )}
         >
           <span>{option.print}</span>

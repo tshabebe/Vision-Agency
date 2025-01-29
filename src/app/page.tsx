@@ -1,10 +1,12 @@
 'use client';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button } from 'react-aria-components';
 import CustomizeImage from './customizeImage';
 import FrameSelection from './frameSection';
 import ConfirmOrder from './confirmOrder';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 export default function CustomizePrint() {
   return (
@@ -14,7 +16,7 @@ export default function CustomizePrint() {
       </h1>
       <div className="flex grow flex-col gap-8 lg:flex-row">
         <ChooseArt />
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col justify-center gap-8 px-4">
           <CustomizeImage />
           <FrameSelection />
           <ConfirmOrder />
@@ -34,6 +36,21 @@ const ArtOptions = [
 
 function ChooseArt() {
   const [selectedArt, setSelectedArt] = useState<string>('4');
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams],
+  );
+
   return (
     <div className="flex grow flex-col gap-2">
       <h2 className="text-2xl uppercase tracking-widest md:text-3xl">
@@ -45,8 +62,15 @@ function ChooseArt() {
             key={option.id}
             onPress={() => {
               setSelectedArt(option.id);
+              router.push(
+                pathname + '?' + createQueryString('artUrl', option.id),
+              );
             }}
-            className={'relative w-full focus:outline focus:outline-green'}
+            className={cn(
+              'relative w-full focus:outline focus:outline-green',
+              searchParams.get('artUrl') === option.id &&
+                'outline outline-green',
+            )}
           >
             <ArtPreview id={option.id} />
           </Button>
