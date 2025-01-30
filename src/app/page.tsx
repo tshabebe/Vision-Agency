@@ -12,7 +12,7 @@ export default function CustomizePrint() {
   return (
     <div className="container flex min-h-screen flex-col gap-4">
       <h1 className="mx-auto font-serif text-4xl uppercase md:text-5xl">
-        Make it custom
+        Make your custom
       </h1>
       <div className="flex grow flex-col gap-8 lg:flex-row">
         <ChooseArt />
@@ -67,9 +67,9 @@ function ChooseArt() {
               );
             }}
             className={cn(
-              'relative w-full focus:outline focus:outline-green',
+              'relative w-full focus:outline focus:outline-brown',
               searchParams.get('artUrl') === option.id &&
-                'outline outline-green',
+                'outline outline-brown',
             )}
           >
             <ArtPreview id={option.id} />

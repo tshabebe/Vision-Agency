@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss';
 import tailwindAnimate from 'tailwindcss-animate';
 import reactAriaComponents from 'tailwindcss-react-aria-components';
-type Scale = 'gray' | 'orange' | 'green' | 'red';
+type Scale = 'gray' | 'brown' | 'green' | 'red';
 
 const generateColorScale = (scale: Scale) => ({
   DEFAULT: `hsl(var(--${scale}-9))`,
@@ -59,7 +59,7 @@ const config: Config = {
         border: 'hsl(var(--gray-6))',
         'border-hover': 'hsl(var(--gray-7))',
         gray: generateColorScale('gray'),
-        orange: generateColorScale('orange'),
+        brown: generateColorScale('brown'),
         green: generateColorScale('green'),
         red: generateColorScale('red'),
       },

@@ -68,7 +68,7 @@ function ConfirmOrder() {
             >
               <Label>Name</Label>
               <Input
-                className="-me-px flex-1 border bg-gray-elevation-2 px-3 py-1 placeholder:text-gray-text-tertiary focus:outline focus:outline-green focus-visible:z-10"
+                className="-me-px flex-1 border bg-gray-elevation-2 px-3 py-1 placeholder:text-gray-text-tertiary focus:outline focus:outline-brown focus-visible:z-10"
                 placeholder="Your Name"
                 ref={ref}
               />
@@ -92,7 +92,7 @@ function ConfirmOrder() {
             >
               <Label>Contact</Label>
               <Input
-                className="-me-px flex-1 border bg-gray-elevation-2 px-3 py-1 placeholder:text-gray-text-tertiary focus:outline focus:outline-green focus-visible:z-10"
+                className="-me-px flex-1 border bg-gray-elevation-2 px-3 py-1 placeholder:text-gray-text-tertiary focus:outline focus:outline-brown focus-visible:z-10"
                 placeholder="Contact Info"
                 ref={ref}
               />
@@ -108,7 +108,7 @@ function ConfirmOrder() {
         isPending={orderArt.isPending}
         isDisabled={orderArt.isPending}
         className={
-          'flex items-center justify-center gap-2 bg-green px-4 py-2 text-lg font-semibold uppercase tracking-widest text-background pending:opacity-90 focus:outline focus:outline-green'
+          'flex items-center justify-center gap-2 bg-brown px-4 py-2 text-lg font-semibold uppercase tracking-widest text-background pending:opacity-90 focus:outline focus:outline-brown'
         }
       >
         {orderArt.isPending && (
