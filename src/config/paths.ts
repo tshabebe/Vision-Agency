@@ -18,7 +18,7 @@ export const paths = {
       getHref: () => '/login',
     },
     login: {
-      getHref: (userRole: string) => `/login/google?userRole=${userRole}`,
+      getHref: () => '/login/google',
     },
     callback: {
       getHref: () => '/login/google/callback',

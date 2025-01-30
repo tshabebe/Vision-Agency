@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,14 +12,16 @@ import {
 import { trpc } from '@/lib/trpc/client';
 import type { OrderArtInputForm } from '@/server/router/orderArt.schema';
 import { ZOrderArtInputForm } from '@/server/router/orderArt.schema';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { LoaderCircle } from 'lucide-react';
+import { paths } from '@/config/paths';
 
-function ConfirmOrder() {
+function ConfirmOrder({ isLoggedIn }: { isLoggedIn: boolean }) {
   const form = useForm<OrderArtInputForm>({
     resolver: zodResolver(ZOrderArtInputForm),
   });
 
+  const router = useRouter();
   const searchParams = useSearchParams();
   const artUrl = searchParams.get('artUrl');
   const size = searchParams.get('size');
@@ -38,6 +41,10 @@ function ConfirmOrder() {
         type: 'server',
         message: 'please select the art, frame and size',
       });
+      return;
+    }
+    if (!isLoggedIn) {
+      router.push(paths.auth.register.getHref());
       return;
     }
     orderArt.mutate({
