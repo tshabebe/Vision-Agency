@@ -15,6 +15,7 @@ import { ZOrderArtInputForm } from '@/server/router/orderArt.schema';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { LoaderCircle } from 'lucide-react';
 import { paths } from '@/config/paths';
+import { cn } from '@/lib/utils';
 
 function ConfirmOrder({ isLoggedIn }: { isLoggedIn: boolean }) {
   const form = useForm<OrderArtInputForm>({
@@ -123,8 +124,14 @@ function ConfirmOrder({ isLoggedIn }: { isLoggedIn: boolean }) {
         )}
         Order
       </Button>
-      <p className="text-red-text-secondary">
+      <p
+        className={cn(
+          'text-red-text-secondary',
+          orderArt.isSuccess && 'text-green-text-secondary',
+        )}
+      >
         {form.formState.errors.root ? form.formState.errors.root.message : ''}
+        {orderArt.isSuccess && 'your order has been successful'}
       </p>
     </form>
   );
