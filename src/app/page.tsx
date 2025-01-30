@@ -39,7 +39,7 @@ async function Avatar() {
     return <div>TS</div>;
   }
   return (
-    <div className="flex items-center gap-2">
+    <div className="absolute right-0 top-0 flex items-center gap-2 px-4 py-3">
       <p>{name}</p>
       <Image
         src={avatarUrl}
