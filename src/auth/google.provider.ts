@@ -3,7 +3,6 @@ import { generateState, Google, OAuth2RequestError } from 'arctic';
 import { z } from 'zod';
 import { db } from '@/db';
 import { eq } from 'drizzle-orm';
-import type { User } from '@/db/schema';
 import { oauthAccountTable, userTable } from '@/db/schema';
 import { generateId } from '@/lib/id';
 import { env } from '@/config/env';
@@ -24,10 +23,7 @@ const google =
     `${getBaseUrl()}${paths.auth.callback.getHref()}`,
   );
 
-const USER_ROLE_COOKIE_NAME = 'user_role';
-export async function createGoogleAuthorizationURL(
-  request: Request,
-): Promise<Response> {
+export async function createGoogleAuthorizationURL(): Promise<Response> {
   if (!google) {
     return new Response(null, {
       status: 404,
@@ -44,13 +40,6 @@ export async function createGoogleAuthorizationURL(
     },
   );
 
-  const userRoleRequestUrl = new URL(request.url);
-  const userRole = userRoleRequestUrl.searchParams.get('userRole');
-
-  if (userRole === null) {
-    throw new Error('user role is required');
-  }
-
   (await cookies()).set('google_oauth_state', state, {
     path: '/',
     secure: process.env.NODE_ENV === 'production',
@@ -58,8 +47,6 @@ export async function createGoogleAuthorizationURL(
     maxAge: 60 * 10,
     sameSite: 'lax',
   });
-
-  (await cookies()).set(USER_ROLE_COOKIE_NAME, userRole);
 
   return Response.redirect(googleRedirectUrl);
 }
@@ -87,7 +74,6 @@ export async function validateGoogleCallback(
   const url = new URL(request.url);
   const code = url.searchParams.get('code');
   const state = url.searchParams.get('state');
-  const userRole = (await cookies()).get(USER_ROLE_COOKIE_NAME)?.value;
   const storedState =
     (await cookies()).get('google_oauth_state')?.value ?? null;
   if (!code || !state || !storedState || state !== storedState) {
@@ -141,7 +127,6 @@ export async function validateGoogleCallback(
       id: userId,
       email,
       name,
-      userRole: userRole as User['userRole'],
       avatarUrl: picture,
     });
     await db.insert(oauthAccountTable).values({

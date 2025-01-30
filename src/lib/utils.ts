@@ -19,6 +19,10 @@ export function getBaseUrl() {
     return `https://${env.VERCEL_PROJECT_PRODUCTION_URL}`;
   }
 
+  if (process.env['CODESPACE_NAME']) {
+    return `https://${process.env['CODESPACE_NAME']}-3000.app.github.dev`;
+  }
+
   if (env.VERCEL_URL) {
     return `https://${env.VERCEL_URL}`;
   }
