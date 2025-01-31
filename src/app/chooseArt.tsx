@@ -34,27 +34,29 @@ export default function ChooseArt() {
       <h2 className="text-2xl uppercase tracking-widest md:text-3xl">
         choose your art
       </h2>
-      <div className="flex w-full basis-32 gap-2">
-        {ArtOptions.map((option) => (
-          <Button
-            key={option.id}
-            onPress={() => {
-              setSelectedArt(option.id);
-              router.push(
-                pathname + '?' + createQueryString('artUrl', option.id),
-              );
-            }}
-            className={cn(
-              'relative w-full focus:outline focus:outline-brown',
-              searchParams.get('artUrl') === option.id &&
-                'outline outline-brown',
-            )}
-          >
-            <ArtPreview id={option.id} />
-          </Button>
-        ))}
+      <div className="flex grow flex-col gap-2 lg:flex-row">
+        <div className="flex w-full basis-32 gap-2 lg:flex-col">
+          {ArtOptions.map((option) => (
+            <Button
+              key={option.id}
+              onPress={() => {
+                setSelectedArt(option.id);
+                router.push(
+                  pathname + '?' + createQueryString('artUrl', option.id),
+                );
+              }}
+              className={cn(
+                'relative size-full focus:outline focus:outline-brown',
+                searchParams.get('artUrl') === option.id &&
+                  'outline outline-brown',
+              )}
+            >
+              <ArtPreview id={option.id} />
+            </Button>
+          ))}
+        </div>
+        <SelectedImage id={selectedArt} />
       </div>
-      <SelectedImage id={selectedArt} />
     </div>
   );
 }
@@ -72,8 +74,13 @@ function ArtPreview({ id }: { id: string }) {
 
 function SelectedImage({ id }: { id: string }) {
   return (
-    <div className="relative h-96 grow">
-      <ArtPreview id={id} />
+    <div className="relative h-96 grow lg:h-full">
+      <Image
+        src={`/${id}.jpg`}
+        alt={`art ${id} by teshome abebe`}
+        fill
+        className="object-contain"
+      />
     </div>
   );
 }
