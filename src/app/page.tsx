@@ -6,6 +6,7 @@ import { checkLoggedIn } from '@/auth/auth';
 import { serverClient } from '@/lib/trpc/serverClient';
 import Image from 'next/image';
 import { Suspense } from 'react';
+import { AvatarPopover } from './avatar.popper';
 
 export default async function CustomizePrint() {
   const isLoggedIn = await checkLoggedIn();
@@ -16,9 +17,11 @@ export default async function CustomizePrint() {
           Make your custom
         </h1>
         {isLoggedIn && (
-          <Suspense fallback={<div>TS</div>}>
-            <Avatar />
-          </Suspense>
+          <AvatarPopover>
+            <Suspense fallback={<div>TS</div>}>
+              <Avatar />
+            </Suspense>
+          </AvatarPopover>
         )}
       </div>
       <div className="flex grow flex-col gap-8 lg:flex-row">
@@ -39,7 +42,7 @@ async function Avatar() {
     return <div>TS</div>;
   }
   return (
-    <div className="absolute right-0 top-0 flex items-center gap-2 px-4 py-3">
+    <div className=" flex items-center gap-2">
       <p>{name}</p>
       <Image
         src={avatarUrl}

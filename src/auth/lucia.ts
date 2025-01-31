@@ -9,6 +9,7 @@ import { sha256 } from '@oslojs/crypto/sha2';
 import { db } from '@/db';
 import { eq } from 'drizzle-orm';
 import { cookies } from 'next/headers';
+import { cache } from 'react';
 
 export function generateSessionToken(): string {
   const bytes = new Uint8Array(20);
@@ -81,6 +82,18 @@ export async function deleteSessionTokenCookie(): Promise<void> {
     maxAge: 0,
   });
 }
+
+export const getCurrentSession = cache(
+  async (): Promise<SessionValidationResult> => {
+    const token = (await cookies()).get('session')?.value ?? null;
+    if (!token) {
+      return { session: null, user: null };
+    }
+    const result = validateSessionToken(token);
+    return result;
+  },
+);
+
 export type SessionValidationResult =
   | { session: Session; user: User }
   | { session: null; user: null };
