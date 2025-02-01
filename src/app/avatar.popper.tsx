@@ -27,7 +27,7 @@ export function AvatarPopover({ children }: { children: ReactNode }) {
       </Button>
       <Popover
         className={
-          'overflow-hidden rounded-md border bg-background shadow-sm shadow-[#0C0909] entering:animate-in entering:fade-in entering:zoom-in-95 exiting:animate-out exiting:fade-out exiting:zoom-out-95'
+          'mr-4 overflow-hidden rounded-md border bg-background shadow-sm shadow-[#0C0909] entering:animate-in entering:fade-in entering:zoom-in-95 exiting:animate-out exiting:fade-out exiting:zoom-out-95'
         }
       >
         <Menu className={'flex w-48 flex-col'}>
