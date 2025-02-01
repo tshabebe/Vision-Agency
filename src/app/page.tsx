@@ -7,6 +7,7 @@ import { serverClient } from '@/lib/trpc/serverClient';
 import Image from 'next/image';
 import { Suspense } from 'react';
 import { AvatarPopover } from './avatar.popper';
+import Button from './button.server';
 
 export default async function CustomizePrint() {
   const isLoggedIn = await checkLoggedIn();
@@ -18,7 +19,7 @@ export default async function CustomizePrint() {
         </h1>
         {isLoggedIn && (
           <AvatarPopover>
-            <Suspense fallback={<div>TS</div>}>
+            <Suspense fallback={<div>U</div>}>
               <Avatar />
             </Suspense>
           </AvatarPopover>
@@ -39,18 +40,20 @@ export default async function CustomizePrint() {
 async function Avatar() {
   const { avatarUrl, name } = await serverClient.userRouter.getUser();
   if (!avatarUrl || !name) {
-    return <div>TS</div>;
+    return <div>U</div>;
   }
   return (
     <div className=" flex items-center gap-2">
       <p className="hidden lg:block">{name}</p>
-      <Image
-        src={avatarUrl}
-        alt={name}
-        width={28}
-        height={28}
-        className="ml-auto rounded-full"
-      ></Image>
+      <Button className={'rounded-full focus:outline focus:outline-brown'}>
+        <Image
+          src={avatarUrl}
+          alt={name}
+          width={28}
+          height={28}
+          className="ml-auto rounded-full"
+        ></Image>
+      </Button>
     </div>
   );
 }
