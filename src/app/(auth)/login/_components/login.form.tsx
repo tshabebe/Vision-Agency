@@ -1,6 +1,6 @@
 'use client';
 import GoogleIcon from './google.icon';
-import { Button, Link, Separator } from 'react-aria-components';
+import { Button, Link } from 'react-aria-components';
 import { paths } from '@/config/paths';
 
 export function LoginPageUI() {
@@ -24,9 +24,9 @@ function Greeting() {
         </h2>
         <div className="flex gap-2 text-base font-extralight md:text-lg">
           <span>STORE</span>
-          <Separator orientation="vertical" className="w-[1] bg-border" />
+          <div className="w-[2] bg-border" />
           <span>GALLERY</span>
-          <Separator orientation="vertical" className="w-[1] bg-border" />
+          <div className="w-[2] bg-border" />
           <span>CAFE</span>
         </div>
       </div>

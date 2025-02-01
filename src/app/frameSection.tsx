@@ -50,7 +50,7 @@ function FrameSelection() {
               router.push(pathname + '?' + createQueryString('frame', 'black'));
             }}
             className={cn(
-              'h-10 w-32 border border-gray-elevation-2-border bg-foreground focus:outline focus:outline-brown dark:bg-background',
+              'h-10 w-32 border border-gray-elevation-2-border bg-[#0f0c0b] focus:outline focus:outline-brown',
               searchParams.get('frame') === 'black' && 'outline outline-brown',
             )}
           ></Button>

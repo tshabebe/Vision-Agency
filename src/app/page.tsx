@@ -11,7 +11,7 @@ import { AvatarPopover } from './avatar.popper';
 export default async function CustomizePrint() {
   const isLoggedIn = await checkLoggedIn();
   return (
-    <div className="container flex min-h-screen flex-col gap-4">
+    <div className="container flex min-h-screen flex-col gap-4 transition-all">
       <div className="flex items-center justify-center">
         <h1 className="mx-auto font-serif text-4xl uppercase md:text-5xl">
           Make your custom
@@ -43,7 +43,7 @@ async function Avatar() {
   }
   return (
     <div className=" flex items-center gap-2">
-      <p>{name}</p>
+      <p className="hidden lg:block">{name}</p>
       <Image
         src={avatarUrl}
         alt={name}

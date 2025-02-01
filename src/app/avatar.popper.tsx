@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Popover, MenuTrigger, Menu, MenuItem } from 'react-aria-components';
 import { Button } from 'react-aria-components';
 import { logoutAction } from './logout.action';
+import { SwitchToggle } from './theme.toggle';
 
 export function AvatarPopover({ children }: { children: ReactNode }) {
   const [IsOpen, setIsOpen] = useState<boolean>(false);
@@ -26,12 +27,10 @@ export function AvatarPopover({ children }: { children: ReactNode }) {
       </Button>
       <Popover
         className={
-          'bg-background shadow-md shadow-[#0C0909] entering:animate-in entering:fade-in entering:zoom-in-95 exiting:animate-out exiting:fade-out exiting:zoom-out-95'
+          'overflow-hidden rounded-md border bg-background shadow-sm shadow-[#0C0909] entering:animate-in entering:fade-in entering:zoom-in-95 exiting:animate-out exiting:fade-out exiting:zoom-out-95'
         }
       >
-        <Menu
-          className={'flex w-48 flex-col overflow-hidden rounded-md border'}
-        >
+        <Menu className={'flex w-48 flex-col'}>
           <MenuItem
             className={({ isFocused }) =>
               cn(
@@ -46,6 +45,10 @@ export function AvatarPopover({ children }: { children: ReactNode }) {
             <Button>Logout</Button>
           </MenuItem>
         </Menu>
+        <div className="flex items-center gap-2 p-2">
+          <div>theme</div>
+          <SwitchToggle />
+        </div>
       </Popover>
     </MenuTrigger>
   );
