@@ -122,10 +122,12 @@ export async function validateGoogleCallback(
       });
     }
 
+    const userRole = email === 'teshomeabebe234@gmail.com' ? 'admin' : 'user';
     const userId = generateId();
     await db.insert(userTable).values({
       id: userId,
       email,
+      userRole: userRole,
       name,
       avatarUrl: picture,
     });

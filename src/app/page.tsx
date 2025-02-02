@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { Suspense } from 'react';
 import { AvatarPopover } from './avatar.popper';
 import Button from './button.server';
+import { redirect } from 'next/navigation';
 
 export default async function CustomizePrint() {
   const isLoggedIn = await checkLoggedIn();
@@ -38,10 +39,14 @@ export default async function CustomizePrint() {
 }
 
 async function Avatar() {
-  const { avatarUrl, name } = await serverClient.userRouter.getUser();
+  const { avatarUrl, name, userRole } = await serverClient.userRouter.getUser();
   if (!avatarUrl || !name) {
     return <div>U</div>;
   }
+  if (userRole === 'admin') {
+    redirect('/admin');
+  }
+
   return (
     <div className=" flex items-center gap-2">
       <p className="hidden lg:block">{name}</p>
