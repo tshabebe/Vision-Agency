@@ -14,7 +14,7 @@ export default async function CustomizePrint() {
   return (
     <div className="container flex min-h-screen flex-col gap-4 transition-all">
       <div className="flex items-center justify-center">
-        <h1 className="mx-auto font-serif text-4xl uppercase md:text-5xl">
+        <h1 className="font-serif text-4xl uppercase md:text-5xl">
           Make your custom
         </h1>
         {isLoggedIn && (

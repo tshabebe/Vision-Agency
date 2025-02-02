@@ -29,6 +29,22 @@ export const artOrder = pgTable('artOrder', {
     .$onUpdate(() => new Date()),
 });
 
+export const uploadFile = pgTable('upload_file', {
+  id: varchar('id', { length: 30 })
+    .$defaultFn(() => generateId())
+    .primaryKey(), // prefix_ + nanoid (12)
+  artUrl: varchar('artUrl', { length: 256 }).notNull(),
+  alt: varchar('alt', { length: 256 }).notNull(),
+  description: varchar('description', { length: 256 }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at')
+    .default(sql`current_timestamp`)
+    .$onUpdate(() => new Date()),
+});
+
+export const ZInsertUploadFiletSchema = createInsertSchema(uploadFile).omit({
+  id: true,
+});
 export const ZInsertArtSchema = createInsertSchema(art).omit({
   id: true,
 });

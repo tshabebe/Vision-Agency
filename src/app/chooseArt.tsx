@@ -76,7 +76,7 @@ function SelectedImage({ id }: { id: string }) {
   return (
     <div className="relative h-96 grow lg:h-full">
       <Image
-        src={`/${id}.jpg`}
+        src={`https://twjyz4eawt.ufs.sh/f/zPrSQQxcDK2XuWWB7Khzhri7X3Q9lWqDVA0dxS86ObyT5PCZ`}
         alt={`art ${id} by teshome abebe`}
         fill
         className="object-contain"

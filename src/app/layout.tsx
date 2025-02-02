@@ -4,6 +4,9 @@ import { TRPCProvider } from '@/lib/trpc/client';
 import { GeistSans } from 'geist/font/sans';
 import { ThemeProvider } from '@/provider/theme.provider';
 import { ClientProviders } from '@/provider/react.aria.provider';
+import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin';
+import { extractRouterConfig } from 'uploadthing/server';
+import { ourFileRouter } from '@/lib/uploadthing';
 
 export const metadata: Metadata = {
   title: 'Vision Agency',
@@ -18,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <TRPCProvider>
           <ClientProviders>
             <ThemeProvider
