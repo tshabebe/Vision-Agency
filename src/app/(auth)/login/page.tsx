@@ -15,8 +15,8 @@ const googleAuthIsEnabled =
  */
 
 export const metadata: Metadata = {
-  title: 'Login - Instructise',
-  description: 'Login to your Instructise account',
+  title: 'Login - KIKUNDI',
+  description: 'Login to your KIKUNDI account',
 };
 
 export default async function LoginPage() {

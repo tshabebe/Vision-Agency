@@ -32,6 +32,9 @@ export const paths = {
     dashboard: {
       getHref: () => '/home',
     },
+    uploads: {
+      getHref: () => '/uploads',
+    },
   },
   landing: {
     root: {

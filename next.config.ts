@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
         hostname: 'twjyz4eawt.ufs.sh',
         pathname: '/f/*',
       },
+      {
+        protocol: 'https',
+        hostname: 'utfs.io',
+        pathname: '/f/*',
+      },
     ],
   },
 

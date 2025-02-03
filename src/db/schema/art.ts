@@ -7,7 +7,9 @@ export const art = pgTable('art', {
   id: varchar('id', { length: 30 })
     .$defaultFn(() => generateId())
     .primaryKey(), // prefix_ + nanoid (12)
-  url: varchar('url', { length: 256 }).notNull(),
+  url: varchar('url', { length: 256 })
+    .references(() => uploadFile.artUrl)
+    .notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at')
     .default(sql`current_timestamp`)
@@ -18,10 +20,16 @@ export const artOrder = pgTable('artOrder', {
   id: varchar('id', { length: 30 })
     .$defaultFn(() => generateId())
     .primaryKey(), // prefix_ + nanoid (12)
-  artUrl: varchar('artUrl', { length: 256 }).notNull(),
+  artUrl: varchar('artUrl', { length: 256 })
+    .references(() => uploadFile.artUrl)
+    .notNull(),
   name: varchar('name', { length: 256 }).notNull(),
+  status: varchar('status', { enum: ['order', 'confirm', 'delivered'] }),
   contactInfo: varchar('contactInfo', { length: 256 }).notNull(),
   size: varchar('size', { length: 256 }).notNull(),
+  description: varchar('description', { length: 256 })
+    .references(() => uploadFile.description)
+    .notNull(),
   frame: varchar('frame', { length: 256 }).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at')

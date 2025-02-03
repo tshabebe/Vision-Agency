@@ -43,6 +43,7 @@ async function Avatar() {
   if (!avatarUrl || !name) {
     return <div>U</div>;
   }
+
   if (userRole === 'admin') {
     redirect('/admin');
   }
