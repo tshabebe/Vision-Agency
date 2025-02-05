@@ -30,7 +30,7 @@ export const paths = {
       getHref: () => '/',
     },
     dashboard: {
-      getHref: () => '/home',
+      getHref: () => '/',
     },
     uploads: {
       getHref: () => '/uploads',

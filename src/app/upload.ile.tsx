@@ -5,7 +5,12 @@ import { UploadButton } from '@/lib/uploadthing.component';
 import { twMerge } from 'tailwind-merge';
 
 export default function UploadFile() {
-  const uploadFile = trpc.uploadFileRouter.uploadFile.useMutation();
+  const utils = trpc.useUtils();
+  const uploadFile = trpc.uploadFileRouter.uploadFile.useMutation({
+    onSuccess: () => {
+      void utils.uploadFileRouter.getAllUploadFiles.invalidate();
+    },
+  });
   return (
     <UploadButton
       endpoint="imageUploader"
@@ -15,7 +20,6 @@ export default function UploadFile() {
         if (res) {
           uploadFile.mutate({
             artUrl: res.url,
-            alt: 'this is something nice',
             description: 'this is the description',
           });
         }
@@ -27,11 +31,10 @@ export default function UploadFile() {
       config={{ cn: twMerge }}
       appearance={{
         button:
-          'ut-ready:bg-brown ut-ready:text-background border-r ut-uploading:cursor-not-allowed rounded-r-none bg-background bg-none',
+          'ut-ready:bg-brown h-full basis-1/2 w-fit grow p-1  rounded-none ut-ready:text-background border-r ut-uploading:cursor-not-allowed rounded-r-none bg-background bg-none',
         container:
-          'w-max flex-row rounded-md border-cyan-300 bg-gray-elevation-2 border border-border',
-        allowedContent:
-          'flex h-8 flex-col items-center justify-center px-2 text-foreground',
+          'w-max flex-row rounded-none gap-0 bg-gray-elevation-2 border border-border',
+        allowedContent: 'leading-none p-1 text-gray-text-primary',
       }}
     />
   );

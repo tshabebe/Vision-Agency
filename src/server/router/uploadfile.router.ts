@@ -30,6 +30,12 @@ export const uploadFileRouter = router({
       await db.delete(artOrder).where(eq(artOrder.id, input.id));
     }),
 
+  deleteImage: authedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input }) => {
+      await db.delete(uploadFile).where(eq(uploadFile.id, input.id));
+    }),
+
   getAllUploadFiles: publicProcedure.query(async () => {
     try {
       const data = await db.select().from(uploadFile);

@@ -8,6 +8,13 @@
       "when": 1738775526265,
       "tag": "0000_red_firebird",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1738783880107,
+      "tag": "0001_high_nehzno",
+      "breakpoints": true
     }
   ]
 }

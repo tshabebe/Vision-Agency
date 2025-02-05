@@ -32,7 +32,7 @@ export default function ChooseArt() {
         choose your art
       </h2>
       <div className="flex grow flex-col gap-2 lg:flex-row">
-        <div className="flex h-96 w-full basis-32 gap-2 overflow-y-auto overflow-x-hidden lg:flex-col">
+        <div className="flex h-[560px] w-full basis-32 gap-2 overflow-auto lg:flex-col">
           {artOptions.data.map((option) => (
             <Button
               key={option.id}

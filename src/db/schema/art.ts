@@ -9,7 +9,7 @@ export const artOrder = pgTable('artOrder', {
     .$defaultFn(() => generateId())
     .primaryKey(), // prefix_ + nanoid (12)
   artId: varchar('art_id', { length: 256 })
-    .references(() => uploadFile.id)
+    .references(() => uploadFile.id, { onDelete: 'cascade' })
     .notNull(),
   userId: varchar('user_id')
     .references(() => userTable.id)

@@ -73,7 +73,7 @@ export function GetAllOrderedImages() {
                   <span>{getSize(artOrder.size).print}</span>
                 </div>
               </div>
-              <div className="">
+              <div className="text-gray-text-secondary">
                 <span>{artOrder.frame}</span>
               </div>
               <div className="flex justify-between">
@@ -164,7 +164,9 @@ function ChangeOrderStatus({ id, status }: { id: string; status: status }) {
   });
   return (
     <Button
-      className={'flex items-center gap-2 bg-brown text-background'}
+      className={
+        'flex items-center justify-center gap-2 bg-brown text-background'
+      }
       onPress={() => {
         confirmOrder.mutate({
           id: id,
@@ -175,7 +177,7 @@ function ChangeOrderStatus({ id, status }: { id: string; status: status }) {
       {confirmOrder.isPending && (
         <LoaderCircle size={16} strokeWidth={3} className="animate-spin" />
       )}
-      deliver
+      {status.status === 'confirm' ? 'approve' : 'deliver'}
     </Button>
   );
 }
@@ -212,7 +214,7 @@ export function ConfirmOrderedImages() {
                   <span>{getSize(artOrder.size).print}</span>
                 </div>
               </div>
-              <div className="">
+              <div className="text-gray-text-secondary">
                 <span>{artOrder.frame}</span>
               </div>
               <div className="flex justify-between">
