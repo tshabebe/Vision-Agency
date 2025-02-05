@@ -24,7 +24,7 @@ function ConfirmOrder({ isLoggedIn }: { isLoggedIn: boolean }) {
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  const artUrl = searchParams.get('artUrl');
+  const artId = searchParams.get('artId');
   const size = searchParams.get('size');
   const frame = searchParams.get('frame');
 
@@ -37,7 +37,7 @@ function ConfirmOrder({ isLoggedIn }: { isLoggedIn: boolean }) {
     },
   });
   function onSubmit(data: OrderArtInputForm) {
-    if (!artUrl || !size || !frame) {
+    if (!artId || !size || !frame) {
       form.setError('root', {
         type: 'server',
         message: 'please select the art, frame and size',
@@ -51,7 +51,7 @@ function ConfirmOrder({ isLoggedIn }: { isLoggedIn: boolean }) {
     orderArt.mutate({
       name: data.name,
       contactInfo: data.contactInfo,
-      artUrl,
+      artId,
       size,
       frame,
     });

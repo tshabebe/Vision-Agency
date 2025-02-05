@@ -5,7 +5,7 @@ import UploadFile from '../upload.ile';
 import Button from '../button.server';
 import { paths } from '@/config/paths';
 import Link from 'next/link';
-import { GetAllImages } from './getAllImages';
+import { ConfirmOrderedImages, GetAllOrderedImages } from './getAllImages';
 
 export default async function Admin() {
   const { userRole } = await serverClient.userRouter.getUser();
@@ -30,11 +30,16 @@ export default async function Admin() {
           <h2 className="px-10 text-2xl uppercase tracking-widest md:text-3xl">
             orders
           </h2>
-          <SearchInput />
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <GetAllImages />
+        <GetAllOrderedImages />
+      </div>
+      <div className="flex flex-col gap-4">
+        <div className="flex justify-between border-b">
+          <h2 className="px-10 text-2xl uppercase tracking-widest md:text-3xl">
+            confirm
+          </h2>
         </div>
+        <ConfirmOrderedImages />
       </div>
     </div>
   );

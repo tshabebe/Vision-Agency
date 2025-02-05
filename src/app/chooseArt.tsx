@@ -4,17 +4,11 @@ import { useCallback, useState } from 'react';
 import { Button } from 'react-aria-components';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
-
-const ArtOptions = [
-  { id: '1', url: '/1.jpg', alt: `art 1 by teshome abebe` },
-  { id: '2', url: '/2.jpg', alt: `art 2 by teshome abebe` },
-  { id: '3', url: '/3.jpg', alt: `art 3 by teshome abebe` },
-  { id: '4', url: '/3.jpg', alt: `art 3 by teshome abebe` },
-];
+import { trpc } from '@/lib/trpc/client';
 
 export default function ChooseArt() {
-  const [selectedArt, setSelectedArt] = useState<string>('4');
-
+  const [selectedArt, setSelectedArt] = useState<string>('/4.jpg');
+  const artOptions = trpc.uploadFileRouter.getAllUploadFiles.useQuery();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -28,6 +22,9 @@ export default function ChooseArt() {
     },
     [searchParams],
   );
+  if (!artOptions.data) {
+    return;
+  }
 
   return (
     <div className="flex grow flex-col gap-2">
@@ -35,49 +32,49 @@ export default function ChooseArt() {
         choose your art
       </h2>
       <div className="flex grow flex-col gap-2 lg:flex-row">
-        <div className="flex w-full basis-32 gap-2 lg:flex-col">
-          {ArtOptions.map((option) => (
+        <div className="flex h-96 w-full basis-32 gap-2 overflow-y-auto overflow-x-hidden lg:flex-col">
+          {artOptions.data.map((option) => (
             <Button
               key={option.id}
               onPress={() => {
-                setSelectedArt(option.id);
+                setSelectedArt(option.artUrl);
                 router.push(
-                  pathname + '?' + createQueryString('artUrl', option.id),
+                  pathname + '?' + createQueryString('artId', option.id),
                 );
               }}
               className={cn(
-                'relative size-full focus:outline focus:outline-brown',
-                searchParams.get('artUrl') === option.id &&
+                'relative size-36 shrink-0 focus:outline focus:outline-brown',
+                searchParams.get('artId') === option.id &&
                   'outline outline-brown',
               )}
             >
-              <ArtPreview id={option.id} />
+              <ArtPreview src={option.artUrl} />
             </Button>
           ))}
         </div>
-        <SelectedImage id={selectedArt} />
+        <SelectedImage src={selectedArt} />
       </div>
     </div>
   );
 }
 
-function ArtPreview({ id }: { id: string }) {
+function ArtPreview({ src }: { src: string }) {
   return (
     <Image
-      src={`/${id}.jpg`}
-      alt={`art ${id} by teshome abebe`}
+      src={src}
+      alt={`art by teshome abebe`}
       fill
       className="object-cover"
     />
   );
 }
 
-function SelectedImage({ id }: { id: string }) {
+function SelectedImage({ src }: { src: string }) {
   return (
     <div className="relative h-96 grow lg:h-full">
       <Image
-        src={`https://twjyz4eawt.ufs.sh/f/zPrSQQxcDK2XuWWB7Khzhri7X3Q9lWqDVA0dxS86ObyT5PCZ`}
-        alt={`art ${id} by teshome abebe`}
+        src={src}
+        alt={`art  by teshome abebe`}
         fill
         className="object-contain"
       />

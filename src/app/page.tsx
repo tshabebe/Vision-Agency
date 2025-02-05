@@ -13,7 +13,7 @@ import { redirect } from 'next/navigation';
 export default async function CustomizePrint() {
   const isLoggedIn = await checkLoggedIn();
   return (
-    <div className="container flex min-h-screen flex-col gap-4 transition-all">
+    <div className="container flex h-screen min-h-screen flex-col gap-4 transition-all">
       <div className="flex items-center justify-center">
         <h1 className="font-serif text-4xl uppercase md:text-5xl">
           Make your custom
