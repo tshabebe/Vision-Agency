@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1738266162214,
-      "tag": "0000_nebulous_wong",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1738523763114,
-      "tag": "0001_same_boom_boom",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1738678424921,
-      "tag": "0002_grey_captain_stacy",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1738696933733,
-      "tag": "0003_lowly_stingray",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1738770281414,
-      "tag": "0004_giant_sway",
+      "when": 1738775526265,
+      "tag": "0000_red_firebird",
       "breakpoints": true
     }
   ]

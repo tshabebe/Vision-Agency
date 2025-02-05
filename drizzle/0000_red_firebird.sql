@@ -1,17 +1,20 @@
-CREATE TABLE IF NOT EXISTS "art" (
+CREATE TABLE IF NOT EXISTS "artOrder" (
 	"id" varchar(30) PRIMARY KEY NOT NULL,
-	"url" varchar(256) NOT NULL,
+	"art_id" varchar(256) NOT NULL,
+	"user_id" varchar NOT NULL,
+	"name" varchar(256) NOT NULL,
+	"status" varchar DEFAULT 'order' NOT NULL,
+	"contactInfo" varchar(256) NOT NULL,
+	"size" varchar(256) NOT NULL,
+	"frame" varchar(256) NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT current_timestamp
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "artOrder" (
+CREATE TABLE IF NOT EXISTS "upload_file" (
 	"id" varchar(30) PRIMARY KEY NOT NULL,
 	"artUrl" varchar(256) NOT NULL,
-	"name" varchar(256) NOT NULL,
-	"contactInfo" varchar(256) NOT NULL,
-	"size" varchar(256) NOT NULL,
-	"frame" varchar(256) NOT NULL,
+	"description" varchar(256) NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT current_timestamp
 );
@@ -37,6 +40,18 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"avatar_url" text,
 	CONSTRAINT "user_email_unique" UNIQUE("email")
 );
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "artOrder" ADD CONSTRAINT "artOrder_art_id_upload_file_id_fk" FOREIGN KEY ("art_id") REFERENCES "public"."upload_file"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "artOrder" ADD CONSTRAINT "artOrder_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "oauth_account" ADD CONSTRAINT "oauth_account_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;

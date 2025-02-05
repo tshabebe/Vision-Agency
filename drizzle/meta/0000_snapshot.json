@@ -1,11 +1,11 @@
 {
-  "id": "3bdc3d04-991b-456d-b72f-12d8ddd5a3f0",
+  "id": "ca5fb10d-82e3-4c03-8388-cbcbcc17349d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.art": {
-      "name": "art",
+    "public.artOrder": {
+      "name": "artOrder",
       "schema": "",
       "columns": {
         "id": {
@@ -14,8 +14,45 @@
           "primaryKey": true,
           "notNull": true
         },
-        "url": {
-          "name": "url",
+        "art_id": {
+          "name": "art_id",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'order'"
+        },
+        "contactInfo": {
+          "name": "contactInfo",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "size": {
+          "name": "size",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "frame": {
+          "name": "frame",
           "type": "varchar(256)",
           "primaryKey": false,
           "notNull": true
@@ -36,12 +73,39 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "artOrder_art_id_upload_file_id_fk": {
+          "name": "artOrder_art_id_upload_file_id_fk",
+          "tableFrom": "artOrder",
+          "tableTo": "upload_file",
+          "columnsFrom": [
+            "art_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "artOrder_user_id_user_id_fk": {
+          "name": "artOrder_user_id_user_id_fk",
+          "tableFrom": "artOrder",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.artOrder": {
-      "name": "artOrder",
+    "public.upload_file": {
+      "name": "upload_file",
       "schema": "",
       "columns": {
         "id": {
@@ -56,26 +120,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "name": {
-          "name": "name",
-          "type": "varchar(256)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "contactInfo": {
-          "name": "contactInfo",
-          "type": "varchar(256)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "size": {
-          "name": "size",
-          "type": "varchar(256)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "frame": {
-          "name": "frame",
+        "description": {
+          "name": "description",
           "type": "varchar(256)",
           "primaryKey": false,
           "notNull": true
