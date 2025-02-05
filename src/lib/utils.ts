@@ -1,6 +1,8 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { env } from '@/config/env';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -28,4 +30,10 @@ export function getBaseUrl() {
   }
 
   return `http://localhost:${String(env.PORT)}`;
+}
+
+dayjs.extend(relativeTime);
+
+export function formatRelativeTime(date: string | Date) {
+  return dayjs(date).fromNow();
 }
