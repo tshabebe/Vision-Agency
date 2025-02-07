@@ -16,6 +16,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { LoaderCircle } from 'lucide-react';
 import { paths } from '@/config/paths';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 function ConfirmOrder({ isLoggedIn }: { isLoggedIn: boolean }) {
   const form = useForm<OrderArtInputForm>({
@@ -37,15 +38,16 @@ function ConfirmOrder({ isLoggedIn }: { isLoggedIn: boolean }) {
     },
   });
   function onSubmit(data: OrderArtInputForm) {
+    if (!isLoggedIn) {
+      router.push(paths.auth.register.getHref());
+      return;
+    }
+
     if (!artId || !size || !frame) {
       form.setError('root', {
         type: 'server',
         message: 'please select the art, frame and size',
       });
-      return;
-    }
-    if (!isLoggedIn) {
-      router.push(paths.auth.register.getHref());
       return;
     }
     orderArt.mutate({
@@ -76,7 +78,7 @@ function ConfirmOrder({ isLoggedIn }: { isLoggedIn: boolean }) {
             >
               <Label>Name</Label>
               <Input
-                className="-me-px flex-1 border bg-gray-elevation-2 px-3 py-1 placeholder:text-gray-text-tertiary focus:outline focus:outline-brown focus-visible:z-10"
+                className="-me-px flex-1 rounded-sm border bg-gray-elevation-2 px-3 py-1 placeholder:text-gray-text-tertiary focus:outline focus:outline-brown focus-visible:z-10"
                 placeholder="Your Name"
                 ref={ref}
               />
@@ -100,7 +102,7 @@ function ConfirmOrder({ isLoggedIn }: { isLoggedIn: boolean }) {
             >
               <Label>Contact</Label>
               <Input
-                className="-me-px flex-1 border bg-gray-elevation-2 px-3 py-1 placeholder:text-gray-text-tertiary focus:outline focus:outline-brown focus-visible:z-10"
+                className="-me-px flex-1 rounded-sm border bg-gray-elevation-2 px-3 py-1 placeholder:text-gray-text-tertiary focus:outline focus:outline-brown focus-visible:z-10"
                 placeholder="Contact Info"
                 ref={ref}
               />
@@ -116,7 +118,7 @@ function ConfirmOrder({ isLoggedIn }: { isLoggedIn: boolean }) {
         isPending={orderArt.isPending}
         isDisabled={orderArt.isPending}
         className={
-          'flex items-center justify-center gap-2 bg-brown px-4 py-2 text-lg font-semibold uppercase tracking-widest text-background pending:opacity-90 focus:outline focus:outline-brown'
+          'flex items-center justify-center gap-2 rounded-sm bg-brown px-4 py-2 text-lg font-semibold uppercase tracking-widest text-background pending:opacity-90 focus:outline focus:outline-brown'
         }
       >
         {orderArt.isPending && (
@@ -133,6 +135,19 @@ function ConfirmOrder({ isLoggedIn }: { isLoggedIn: boolean }) {
         {form.formState.errors.root ? form.formState.errors.root.message : ''}
         {orderArt.isSuccess && 'your order has been successful'}
       </p>
+      <div>
+        {!isLoggedIn && (
+          <p>
+            please{' '}
+            <Link
+              className="text-brown-text-secondary hover:text-brown-text-primary"
+              href={paths.auth.register.getHref()}
+            >
+              login to your account
+            </Link>
+          </p>
+        )}
+      </div>
     </form>
   );
 }

@@ -46,7 +46,7 @@ function Size() {
             router.push(pathname + '?' + createQueryString('size', option.id));
           }}
           className={cn(
-            'flex flex-col bg-gray-elevation-3 p-4 outline focus:outline-brown',
+            'flex flex-col rounded-sm bg-gray-elevation-3 p-4 outline focus:outline-brown',
             option.id === 'large' && 'p-6',
             option.id === 'medium' && 'p-5',
             searchParams.get('size') === option.id && 'outline outline-brown',

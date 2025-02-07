@@ -9,21 +9,38 @@ import { Suspense } from 'react';
 import { AvatarPopover } from './avatar.popper';
 import Button from './button.server';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
+import { paths } from '@/config/paths';
+import { SwitchToggle } from './theme.toggle';
 
 export default async function CustomizePrint() {
   const isLoggedIn = await checkLoggedIn();
   return (
     <div className="container flex h-screen min-h-screen flex-col gap-4 transition-all">
-      <div className="flex items-center justify-center">
-        <h1 className="font-serif text-4xl uppercase md:text-5xl">
+      <div className="flex items-center justify-between">
+        <Link href={paths.app.dashboard.getHref()} className="items-center">
+          <h2 className="font-serif text-xl font-light md:text-2xl">KIKUNDI</h2>
+        </Link>
+        <h1 className="mx-auto font-serif text-4xl uppercase md:text-5xl">
           Make your custom
         </h1>
-        {isLoggedIn && (
+        {isLoggedIn ? (
           <AvatarPopover>
             <Suspense fallback={<div>U</div>}>
               <Avatar />
             </Suspense>
           </AvatarPopover>
+        ) : (
+          <div className={'flex gap-2'}>
+            <SwitchToggle />
+            <Button
+              className={
+                'border border-brown-elevation-4 bg-brown-elevation-2 px-2 py-1 text-brown-text-primary hover:bg-brown-elevation-2-hover hover:text-brown-text-primary-hover'
+              }
+            >
+              <Link href={paths.auth.register.getHref()}>login</Link>
+            </Button>
+          </div>
         )}
       </div>
       <div className="flex grow flex-col gap-8 lg:flex-row">

@@ -35,7 +35,7 @@ function FrameSelection() {
               );
             }}
             className={cn(
-              'h-10 w-32 border border-brown-elevation-1-border bg-gradient-to-r from-gray-elevation-2 to-brown focus:outline focus:outline-brown',
+              'h-10 w-32 rounded-sm border border-brown-elevation-1-border bg-gradient-to-r from-gray-elevation-2 to-brown focus:outline focus:outline-brown',
               searchParams.get('frame') === 'natural' &&
                 'outline outline-brown',
             )}
@@ -50,7 +50,7 @@ function FrameSelection() {
               router.push(pathname + '?' + createQueryString('frame', 'black'));
             }}
             className={cn(
-              'h-10 w-32 border border-gray-elevation-2-border bg-[#0f0c0b] focus:outline focus:outline-brown',
+              'h-10 w-32 rounded-sm border border-gray-elevation-2-border bg-[#0f0c0b] focus:outline focus:outline-brown',
               searchParams.get('frame') === 'black' && 'outline outline-brown',
             )}
           ></Button>
